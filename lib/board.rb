@@ -10,12 +10,15 @@ class Board
     @board[col][row] = piece
   end
   def display
+   puts "\n A  B  C  D  E  F  G  H "
     (0..7).each do |row|
+      puts '------------------------'
       (0..7).each do |col|
-        print board[col][row] == nil ? " |  |  " : "| #{@board[col][row]} |"        
+        print board[col][row] == nil ? "   " : " #{@board[col][row]} "        
       end
-      puts
+      puts row
     end
+    puts '------------------------'
   end
   def is_out?(location)
     row, col = location
@@ -30,6 +33,10 @@ piec = Pawn.new(:white)
   # b.display
     piece = Pawn.new(:white)
   b.place(piece, [position,1])
+end
+(0..7).each do |pos|
+  piece = Pawn.new(:black)
+  b.place(piece, [pos, 6])
 end
 
 # b.place('king', [1,2])
