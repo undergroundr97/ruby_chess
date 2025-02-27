@@ -2,6 +2,8 @@ require_relative './pawn'
 require_relative './rook'
 require_relative './knight'
 require_relative './bishop'
+require_relative './king'
+require_relative './queen'
 require 'paint'
 class Board
   attr_accessor :board
@@ -10,38 +12,45 @@ class Board
     b = self.new
     (0..7).each do |position|
       # b.display
-        piece = Pawn.new(:white)
+        piece = Pawn.new(b, :white)
       b.place(piece, [position,1])
     end
     (0..7).each do |pos|
-      piece = Pawn.new(:black)
+      piece = Pawn.new(b, :black)
       b.place(piece, [pos, 6])
     end
     [0,7].each do |pos|
-      piece = Rook.new(:white)
+      piece = Rook.new(b, :white)
       b.place(piece, [pos, 0])
     end
     [0,7].each do |pos|
-      piece = Rook.new(:black)
+      piece = Rook.new(b, :black)
       b.place(piece, [pos, 7])
     end
     [1,6].each do |pos|
-      piece = Knight.new(:white)
+      piece = Knight.new(b, :white)
       b.place(piece,[pos, 0])
     end
     [1,6].each do |pos|
-      piece = Knight.new(:black)
+      piece = Knight.new(b, :black)
       b.place(piece,[pos, 7])
     end
     [2,5].each do |pos|
-      piece = Bishop.new(:white)
+      piece = Bishop.new(b, :white)
       b.place(piece,[pos,0])
     end
     [2,5].each do |pos|
-      piece = Bishop.new(:black)
+      piece = Bishop.new(b, :black)
       b.place(piece,[pos,7])
     end
-
+    kingw = King.new(b, :white)
+    kingb = King.new(b, :black)
+    queenw = Queen.new(b, :white)
+    queenb = Queen.new(b, :black)
+    b.place(kingw, [4,0])
+    b.place(kingb, [4,7])
+    b.place(queenw, [3,0])
+    b.place(queenb, [3,7])
     b
   end
 
@@ -74,4 +83,5 @@ b.display
 
 
 
-puts Paint[b.board.each, Paint.random]
+Paint[b.board, Paint.random]
+b.display

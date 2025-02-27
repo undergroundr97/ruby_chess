@@ -1,11 +1,11 @@
-# require_relative 'board'
-class Pawn
-  def initialize(color)
-    @color = color
+require_relative 'piece'
+class Pawn < Piece
+ 
+  def move
+    [0,1]
   end
-
   def to_s
-    "\u2659"
+    color == :white ? "\u2659" : "\u265F"
   end
 end
 
