@@ -4,8 +4,10 @@ require_relative './knight'
 require_relative './bishop'
 require_relative './king'
 require_relative './queen'
+require_relative 'slideable'
+require_relative 'stepable'
 require 'paint'
-class Board
+class Board 
   attr_accessor :board
 
   def self.set_board
@@ -76,12 +78,24 @@ class Board
     row, col = location
      row >= 0 && row <= 7 && col >= 0 && col <= 7 ? false : true
   end
+  def empty?(location)
+    row, col = location
+    board[row][col].nil?
+  end
+  def get_piece(location)
+    row, col = location
+    board[row][col]
+  end
+  def [](location)
+    row, col = location
+    board[row][col] = get_piece(location)
+  end
 end
 
-b = Board.set_board
+b = Board.new
+# b.display
+b.place(Rook.new(b, :white, [3,3]), [3,3])
 b.display
+p b.get_piece([3,3]).available_moves
 
 
-
-Paint[b.board, Paint.random]
-b.display
