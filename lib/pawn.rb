@@ -1,8 +1,8 @@
 require_relative 'piece'
 class Pawn < Piece
  
-  def move
-    [0,1]
+  def moves
+    [[0,1]]
   end
   def to_s
     color == :white ? "\u2659" : "\u265F"

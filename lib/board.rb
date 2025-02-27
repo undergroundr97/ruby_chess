@@ -96,6 +96,13 @@ b = Board.new
 # b.display
 b.place(Rook.new(b, :white, [3,3]), [3,3])
 b.display
+b.place(King.new(b, :white, [1,1]), [1,1])
+b.place(Knight.new(b, :white, [2,2]), [2,2])
+b.place(Bishop.new(b, :white, [4,4]), [4,4])
+b.display
 p b.get_piece([3,3]).available_moves
+p b.get_piece([1,1]).available_moves
+p b.get_piece([2,2]).available_moves
+p b.get_piece([4,4]).available_moves
 
 
