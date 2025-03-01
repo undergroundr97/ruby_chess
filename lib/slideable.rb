@@ -11,6 +11,10 @@ module Slideable
         if board.get_piece(loc) != nil && board.get_piece(loc).color == self.color
           break
         end
+        if board.get_piece(loc) != nil && board.get_piece(loc).color != self.color
+          move << loc
+          break
+        end
         if board.empty?(loc)
           move << loc
         end
