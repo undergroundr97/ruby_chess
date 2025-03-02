@@ -6,6 +6,8 @@ require_relative './king'
 require_relative './queen'
 require_relative 'slideable'
 require_relative 'stepable'
+require_relative 'player'
+require_relative 'game'
 require 'paint'
 class Board 
   attr_accessor :board
@@ -53,11 +55,14 @@ class Board
     b.place(kingb, [4,7])
     b.place(queenw, [3,0])
     b.place(queenb, [3,7])
+    pawntest = Pawn.new(b, :white,[1,6])
+    b.place(pawntest, [1,6])
     b
   end
 
   def initialize
     @board = Array.new(8){Array.new(8){}}
+    
   end
   def place(piece, location)
     col, row = location
@@ -75,7 +80,7 @@ class Board
     puts '------------------------'
   end
   def is_out?(location)
-    row, col = location
+    col, row = location
      row >= 0 && row <= 7 && col >= 0 && col <= 7 ? false : true
   end
   def empty?(location)
@@ -113,7 +118,7 @@ class Board
 end
 
 b = Board.set_board
-b.display
+# b.display
 # b.display
 # b.place(Rook.new(b, :white, [3,3]), [3,3])
 # b.display
@@ -126,16 +131,20 @@ b.display
 # p b.get_piece([2,2]).available_moves
 # p b.get_piece([4,4]).available_moves
 # 
- b.place(Knight.new(b, :white, [1,2]), [1,2])
- b.place(Pawn.new(b, :white, [7,7]), [7,7])
-p b.get_piece([7,7]).available_moves
-b.move_piece([0,1],[0,3])
-p b.get_piece([1,6]).available_moves
-b.move_piece([1,6],[1,4])
-b.move_piece([0,3],[1,4])
-p b.get_piece([1,4]).available_moves
-b.display
-p b.get_piece([1,4]).available_moves
+#  b.place(Knight.new(b, :white, [1,2]), [1,2])
+#  b.place(Pawn.new(b, :white, [7,7]), [7,7])
+# p b.get_piece([7,7]).available_moves
+# b.move_piece([0,1],[0,3])
+# p b.get_piece([1,6]).available_moves
+# p b.get_piece([0,0]).available_moves
+# b.move_piece([0,0], [0,2])
+# b.move_piece([0,2], [2,2])
+# b.move_piece([2,2], [2,6])
+# b.move_piece([1,6],[1,4])
+# b.move_piece([0,3],[1,4])
+# p b.get_piece([1,4]).available_moves
+# b.display
+# p b.get_piece([1,4]).available_moves
 # p b.get_piece([0,3]).available_moves
 # 
-
+# p b.get_piece([2,6]).available_moves
