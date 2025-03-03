@@ -109,13 +109,14 @@ class Board
         self.delete_piece_at(start_pos)
         piece.location = end_pos
       end
-    #remove the piece from the board at current location
-    #place the piece on the board at new location
-    #update the pieces internal location with end pos
+  end
+  def to_json
+     @board
   end
 end
 
-b = Board.set_board
+b = Board.new
+
 # b.display
 # b.display
 # b.place(Rook.new(b, :white, [3,3]), [3,3])

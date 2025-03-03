@@ -118,7 +118,7 @@ class Game
   end
   def to_json
     JSON.dump ({
-      :board => @board,
+      :board => @board.to_json,
       :player1 => Player.new(:black),
       :player2 => Player.new(:white),
       :current_player => current_player
@@ -135,7 +135,7 @@ class Game
     game_data = JSON.parse(File.read('SavedGame/save.json'), symbolize_names: true)
     p game_data
     g = Game.new
-    g.board = game_data[:board]
+    g.board = Board.set_board
     g.player1 = Player.new(game_data[:player1])
     g.player2 = Player.new(game_data[:player2])
     p current  = current_player = game_data[:current_player].to_sym
