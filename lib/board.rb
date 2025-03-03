@@ -55,8 +55,8 @@ class Board
     b.place(kingb, [4,7])
     b.place(queenw, [3,0])
     b.place(queenb, [3,7])
-    pawntest = Pawn.new(b, :white,[1,6])
-    b.place(pawntest, [1,6])
+    # pawntest = Pawn.new(b, :white,[1,6])
+    # b.place(pawntest, [1,6])
     b
   end
 
@@ -112,6 +112,53 @@ class Board
   end
   def to_json
      @board
+  end
+  def self.from_json(data)
+    b = self.new
+    data.each_with_index do |array, col|
+      array.each_with_index do |piece, row|
+        p row
+        p col
+        next if piece == nil
+        if piece == "♖"
+          b.place(Rook.new(b, :white, [col,row]), [col,row])
+        end
+        if piece == "♜"
+          b.place(Rook.new(b, :black, [col,row]), [col,row])
+        end
+        if piece == "♙"
+          b.place(Pawn.new(b, :white, [col,row]), [col,row])
+        end
+        if piece == "♟"
+          b.place(Pawn.new(b, :black, [col,row]), [col,row])
+        end
+        if piece == "♗"
+          b.place(Bishop.new(b, :white, [col,row]), [col,row])
+        end
+        if piece == "♝"
+          b.place(Bishop.new(b, :black, [col,row]), [col,row])
+        end
+        if piece == "♘"
+          b.place(Knight.new(b, :white, [col,row]), [col,row])
+        end
+        if piece == "♞"
+          b.place(Knight.new(b, :black, [col,row]), [col,row])
+        end
+        if piece == "♚"
+          b.place(King.new(b, :black, [col,row]), [col,row])
+        end
+        if piece == "♔"
+          b.place(King.new(b, :white, [col,row]), [col,row])
+        end
+        if piece == "♛"
+          b.place(Queen.new(b, :black, [col,row]), [col,row])
+        end
+        if piece == "♕"
+          b.place(Queen.new(b, :white, [col,row]), [col,row])
+        end
+      end
+    end
+    b
   end
 end
 
