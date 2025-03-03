@@ -100,9 +100,7 @@ class Board
     board[col][row] = nil
   end
   def move_piece(start_pos, end_pos)
-    p start_pos
     col, row = start_pos
-    p col, row
     puts piece = self.get_piece(start_pos)
       if piece.available_moves.include?(end_pos)
         # self[col][row] = nil
