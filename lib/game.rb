@@ -23,11 +23,11 @@ class Game
       hash_a_h[let] = index
     end
     p hash_a_h
+    board.display
     loop do 
-      board.display
     # puts "Welcome to CHESS!"
     puts "It's #{@current_player.color}'s turn!"
-    puts "Select a piece with two coordinates as: 0,0"
+    puts "Select a piece with two coordinates as: a1 or h6"
     pick = gets.chomp.to_s
     working_piece_a = pick.split('').first
     working_piece_a = hash_a_h[working_piece_a]
@@ -36,8 +36,9 @@ class Game
     # p working_piece.map {|x| x = hash_a_h[x]} 
     working_piece = [working_piece_a, working_piece_b]
     while board.get_piece(working_piece) == nil
+    board.display
     puts "Invalid position!"
-    puts "Select again as: a1 or a2"
+    puts "Select again as: a1 or h6"
     pick = gets.chomp.to_s
     working_piece_a = pick.split('').first
     working_piece_a = hash_a_h[working_piece_a]
@@ -60,35 +61,44 @@ class Game
     end
     piece = board.get_piece(working_piece)
     
-    while piece.color != @current_player.color  do  
+    while board.get_piece(working_piece) == nil || piece.color != @current_player.color do 
       board.display
-      puts "You cannot move your opponent pieces!"
+      puts "Invalid move!"
       puts "Select another piece!"
       pick = gets.chomp.to_s
+      # if board.get_piece(pick) == nil 
+      #   puts "You can't pick an empty place!"
+      #   pick = gets.chomp.to_s
+      # end
       working_piece_a = pick.split('').first
       working_piece_a = hash_a_h[working_piece_a]
       working_piece_b = pick.split('').last.to_i
       working_piece = [working_piece_a, working_piece_b]
       piece = board.get_piece(working_piece)
     end
-    puts "You selected #{piece}, the available moves are #{piece.available_moves}"
-    puts "Where you want to move? as: a2"
-    move_p = gets.chomp.to_s 
-    working_move = move_p.split('').map {|x| x.to_i}
-    p working_move_a = working_move.first
-    working_move_a = hash_a_h[working_move_a]
-    p working_move_b = working_move.last
-    p working_move = [working_move_a, working_move_b]
-    p check_moves = piece.available_moves
-    check_moves.each do |loc|
-      p loc.map do |arr|
-          to_change = arr.first
-          to_change = hash_a_h[to_change]
-      end
+    check_moves = piece.available_moves
+    check_moves.map! do |arr|
+        arr[0] = hash_a_h.key(arr[0])
+        "#{arr[0]}#{arr[1]}"
     end
-    p check_moves
-    # while !check_moves.include?(working_move) do
-    #   puts "This is an invalid move!"
+    puts "You selected #{piece}, the available moves are: #{check_moves.join(', ')}"
+    puts "Where you want to move? as: a2"
+    move_to = gets.chomp.to_s 
+    working_move = move_to.split('')
+     working_move_a = working_move.first
+     working_move_a = hash_a_h[working_move_a]
+     working_move_b = working_move.last.to_i
+     working_move = [working_move_a, working_move_b]
+      to_check_moves = piece.available_moves
+    while !to_check_moves.include?(working_move) do
+      puts "This move is not valid! available moves are #{check_moves.join(', ')}"
+      move_to = gets.chomp.to_s 
+      working_move = move_to.split('')
+      working_move_a = working_move.first
+      working_move_a = hash_a_h[working_move_a]
+      working_move_b = working_move.last.to_i
+      working_move = [working_move_a, working_move_b]
+    end
     board.move_piece(piece.location, working_move)
     if piece.class == Pawn && piece.promote?
       board.display
